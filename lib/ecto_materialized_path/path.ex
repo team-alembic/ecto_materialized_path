@@ -7,19 +7,20 @@ defmodule EctoMaterializedPath.Path do
   """
 
   def cast(list) when is_list(list) do
-    path_is_correct? = Enum.all?(list, fn(path_id) -> (is_integer(path_id) || is_binary(path_id)) end)
+    path_is_correct? = Enum.all?(list, &is_integer/1) || Enum.all?(list, &is_binary/1)
 
     if path_is_correct? do
-      { :ok, list }
+      {:ok, list}
     else
       :error
     end
   end
+
   def cast(_), do: :error
 
-  def dump(value), do: { :ok, value }
+  def dump(value), do: {:ok, value}
 
-  def load(value), do: { :ok, value }
+  def load(value), do: {:ok, value}
 
   def type, do: EctoMaterializedPath.Path
 end
